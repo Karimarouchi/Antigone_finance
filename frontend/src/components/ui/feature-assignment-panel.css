@@ -1,0 +1,396 @@
+/* components/ui/feature-assignment-panel.css */
+
+/* ── Keyframes ──────────────────────────────────────────────────────────────── */
+
+@keyframes fap-slide-in {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fap-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fap-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Layout ──────────────────────────────────────────────────────────────────── */
+
+.fap-container {
+  display: flex;
+  border: 1px solid var(--border-light);
+  border-radius: 18px;
+  overflow: hidden;
+  min-height: 460px;
+  background: var(--white);
+  animation: fap-fade-in 0.35s ease both;
+}
+
+/* ── Sidebar ─────────────────────────────────────────────────────────────────── */
+
+.fap-sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+}
+
+.fap-search-wrapper {
+  position: relative;
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.fap-search-icon {
+  position: absolute;
+  left: 1.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  color: var(--faint);
+  pointer-events: none;
+}
+
+.fap-search {
+  width: 100%;
+  padding: 0.4rem 0.8rem 0.4rem 2rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--text);
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.fap-search:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+.fap-user-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.4rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* stagger list items */
+.fap-user-list li { animation: fap-slide-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.fap-user-list li:nth-child(1)  { animation-delay: 0.04s; }
+.fap-user-list li:nth-child(2)  { animation-delay: 0.08s; }
+.fap-user-list li:nth-child(3)  { animation-delay: 0.12s; }
+.fap-user-list li:nth-child(4)  { animation-delay: 0.16s; }
+.fap-user-list li:nth-child(5)  { animation-delay: 0.20s; }
+.fap-user-list li:nth-child(6)  { animation-delay: 0.24s; }
+.fap-user-list li:nth-child(7)  { animation-delay: 0.28s; }
+.fap-user-list li:nth-child(n+8){ animation-delay: 0.30s; }
+
+.fap-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.45rem 0.55rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s, transform 0.12s;
+  font-family: inherit;
+}
+
+.fap-user-btn:hover       { background: var(--border-light); transform: translateX(2px); }
+.fap-user-btn-active      { background: var(--accent-bg) !important; }
+
+/* ── Avatars ─────────────────────────────────────────────────────────────────── */
+
+.fap-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: transform 0.15s;
+}
+
+.fap-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.fap-avatar-active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 0 2px var(--accent-bg);
+}
+
+/* Larger avatar in the right-panel header */
+.fap-avatar-lg {
+  width: 42px;
+  height: 42px;
+  font-size: 1rem;
+}
+
+.fap-user-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.fap-user-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fap-user-email {
+  font-size: 0.7rem;
+  color: var(--faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fap-count-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  background: var(--border-light);
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.fap-count-partial { background: #fef9c3; color: #854d0e; }
+.fap-count-full    { background: #dcfce7; color: #166534; }
+
+.fap-no-users {
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: var(--faint);
+  text-align: center;
+}
+
+/* ── Main panel ──────────────────────────────────────────────────────────────── */
+
+.fap-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+.fap-empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--faint);
+  padding: 3rem;
+  animation: fap-fade-in 0.3s ease both;
+}
+
+.fap-empty-state svg {
+  width: 44px;
+  height: 44px;
+  opacity: 0.35;
+}
+
+.fap-empty-state p {
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.fap-features-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  animation: fap-fade-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.fap-features-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--surface);
+  gap: 0.75rem;
+}
+
+/* Selected user row in the panel header */
+.fap-selected-user {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.fap-selected-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text);
+}
+
+.fap-selected-email {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0.1rem 0 0;
+}
+
+.fap-summary-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.22rem 0.7rem;
+  border-radius: 999px;
+  background: var(--border-light);
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.fap-saving {
+  background: #fef3c7;
+  color: #92400e;
+  animation: fap-pulse 1s ease-in-out infinite;
+}
+
+@keyframes fap-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+.fap-groups {
+  padding: 0.75rem 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* stagger feature groups */
+.fap-group { animation: fap-fade-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.fap-group:nth-child(1) { animation-delay: 0.05s; }
+.fap-group:nth-child(2) { animation-delay: 0.10s; }
+.fap-group:nth-child(3) { animation-delay: 0.15s; }
+.fap-group:nth-child(n+4) { animation-delay: 0.18s; }
+
+.fap-group-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.fap-feature-list { display: flex; flex-direction: column; }
+
+.fap-feature-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.1s;
+}
+
+.fap-feature-row:last-child { border-bottom: none; }
+
+.fap-feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.fap-feature-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.fap-feature-desc {
+  font-size: 0.73rem;
+  color: var(--faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Toggle switch ───────────────────────────────────────────────────────────── */
+
+.fap-toggle {
+  position: relative;
+  width: 38px;
+  height: 21px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.12s;
+  padding: 0;
+}
+
+.fap-toggle:hover:not(:disabled) { transform: scale(1.08); }
+.fap-toggle:disabled { opacity: 0.5; cursor: wait; }
+
+.fap-toggle-on  { background: var(--accent); }
+.fap-toggle-off { background: var(--border); }
+
+.fap-toggle-thumb {
+  position: absolute;
+  top: 2.5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: left 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fap-toggle-on  .fap-toggle-thumb { left: 20px; }
+.fap-toggle-off .fap-toggle-thumb { left: 2.5px; }
+
+/* ── Responsive ──────────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .fap-container { flex-direction: column; }
+  .fap-sidebar   { width: 100%; border-right: none; border-bottom: 1px solid var(--border-light); max-height: 180px; }
+}
+
+/* ── Dark mode ───────────────────────────────────────────────────────────────── */
+
+body.dark .fap-count-partial  { background: #422006; color: #fde68a; }
+body.dark .fap-count-full     { background: #14532d; color: #86efac; }
+body.dark .fap-user-btn-active { background: rgba(232, 98, 26, 0.15) !important; }

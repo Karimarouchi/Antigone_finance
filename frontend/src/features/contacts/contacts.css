@@ -1,0 +1,643 @@
+/* ── Contacts Page ── */
+
+.contacts-page {
+  margin: 0;
+  padding: 0 80px 60px;
+}
+
+.contacts-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.contacts-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+}
+
+.contacts-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ── Filters bar ── */
+
+.contacts-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.ct-search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 180px;
+  max-width: 320px;
+}
+
+.ct-search-wrap svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--faint);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.ct-search {
+  width: 100%;
+  padding: 9px 14px 9px 38px;
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.ct-search:focus {
+  border-color: var(--accent);
+}
+
+.ct-search::placeholder {
+  color: var(--faint);
+}
+
+.ct-filter-select {
+  min-width: 170px;
+}
+
+.ct-clear-btn {
+  padding: 7px 14px;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-bg);
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.ct-clear-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* ── Table ── */
+
+.contacts-table-wrap {
+  background: var(--white);
+  border-radius: 24px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+}
+
+.contacts-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.contacts-table thead {
+  background: var(--surface);
+}
+
+.contacts-table thead tr {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.contacts-table th {
+  padding: 13px 18px;
+  text-align: left;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.contacts-table th:hover {
+  color: var(--text);
+}
+
+.contacts-table th .ct-th-inner {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.contacts-table th .ct-sort-icon {
+  width: 10px;
+  height: 10px;
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+
+.contacts-table th.sorted .ct-sort-icon {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.contacts-table td {
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border-light);
+  white-space: nowrap;
+}
+
+.contacts-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.contacts-table tbody tr {
+  transition: background 0.12s;
+}
+
+.contacts-table tbody tr:hover {
+  background: var(--surface);
+}
+
+/* ── Name cell ── */
+
+.ct-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ct-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+}
+
+.ct-name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.ct-role {
+  font-size: 11px;
+  color: var(--faint);
+  margin-top: 1px;
+}
+
+/* ── Link cells ── */
+
+.contacts-table td a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.contacts-table td a:hover {
+  text-decoration: underline;
+}
+
+.ct-company-link {
+  font-weight: 600;
+}
+
+/* ── Row actions ── */
+
+.ct-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.ct-action-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--faint);
+  transition: background 0.15s, color 0.15s;
+}
+
+.ct-action-btn:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.ct-action-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ct-action-btn--danger:hover {
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+}
+
+/* ── Empty / Loading ── */
+
+.contacts-empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--muted);
+}
+
+.contacts-empty svg {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.3;
+}
+
+.contacts-empty p {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 6px;
+}
+
+.contacts-empty span {
+  font-size: 13px;
+  color: var(--faint);
+}
+
+.contacts-loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ── Dark mode ── */
+
+body.dark .contacts-table-wrap {
+  box-shadow: 0 2px 16px rgba(0,0,0,0.35);
+}
+
+body.dark .contacts-table thead {
+  background: var(--surface);
+}
+
+body.dark .contacts-table thead tr,
+body.dark .contacts-table td {
+  border-color: var(--border);
+}
+
+body.dark .contacts-table tbody tr:hover {
+  background: var(--surface);
+}
+
+body.dark .ct-search {
+  background: var(--white);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+body.dark .ct-search:focus {
+  border-color: var(--accent);
+}
+
+body.dark .ct-clear-btn {
+  background: rgba(232,98,26,0.15);
+  color: var(--accent);
+}
+
+body.dark .ct-clear-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* ── Add button ── */
+
+.ct-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  background: var(--accent);
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ct-add-btn:hover {
+  background: #d15a17;
+}
+
+.ct-add-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+/* ── Contact Modal ── */
+
+.ct-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.ct-modal {
+  background: var(--bg);
+  border-radius: 28px;
+  width: 520px;
+  max-width: 96vw;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ct-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 24px 20px;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--white);
+}
+
+.ct-modal-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--accent-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ct-modal-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ct-modal-header-text {
+  flex: 1;
+}
+
+.ct-modal-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 2px;
+}
+
+.ct-modal-subtitle {
+  font-size: 12px;
+  color: var(--faint);
+  margin: 0;
+}
+
+.ct-modal-close {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--faint);
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.ct-modal-close:hover {
+  background: var(--border-light);
+  color: var(--text);
+}
+
+.ct-modal-close svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+/* ── Modal body ── */
+
+.ct-modal-body {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ct-modal-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.ct-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ct-modal-field label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.ct-req {
+  color: var(--accent);
+  margin-left: 2px;
+}
+
+.ct-modal-field input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--surface);
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+  appearance: none;
+}
+
+.ct-modal-field input:hover {
+  border-color: var(--faint);
+}
+
+.ct-modal-field input:focus {
+  border-color: var(--accent);
+}
+
+.ct-modal-field input::placeholder {
+  color: var(--faint);
+  font-size: 12px;
+}
+
+/* ── Modal footer ── */
+
+.ct-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 24px 20px;
+  border-top: 1px solid var(--border-light);
+  background: var(--white);
+}
+
+.ct-modal-status {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.ct-modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.ct-modal-btn-cancel,
+.ct-modal-btn-save {
+  width: 140px;
+  padding: 10px 0;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  border: none;
+  text-align: center;
+}
+
+.ct-modal-btn-cancel {
+  background: var(--surface);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.ct-modal-btn-cancel:hover {
+  background: var(--border-light);
+  color: var(--text);
+}
+
+.ct-modal-btn-save {
+  background: var(--accent);
+  color: white;
+}
+
+.ct-modal-btn-save:hover {
+  background: #d15a17;
+}
+
+/* ── Dark mode (modal) ── */
+
+body.dark .ct-modal {
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+}
+
+body.dark .ct-modal-header,
+body.dark .ct-modal-footer {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+body.dark .ct-modal-field input {
+  background: var(--white);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+body.dark .ct-modal-field input:focus {
+  border-color: var(--accent);
+}
+
+body.dark .ct-modal-close {
+  background: var(--white);
+  border-color: var(--border);
+}
+
+body.dark .ct-modal-btn-cancel {
+  background: var(--white);
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+body.dark .ct-modal-btn-cancel:hover {
+  background: var(--border);
+  color: var(--text);
+}

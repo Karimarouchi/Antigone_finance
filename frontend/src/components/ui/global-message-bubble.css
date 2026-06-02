@@ -1,0 +1,235 @@
+/* ── GlobalMessageBubble ── */
+
+.gbubble-wrapper {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 1800;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.gbubble-pill {
+  height: 48px;
+  border-radius: 999px;
+  background: var(--gbubble-bg, #ffffff);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--border, #e0e0e5);
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  --gbubble-bg: #ffffff;
+}
+
+body.dark .gbubble-pill {
+  --gbubble-bg: #1c1c1e;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  border-color: var(--border, #3a3a3c);
+}
+
+.gbubble-inner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 6px;
+  gap: 4px;
+  overflow: visible;
+}
+
+/* ── Icon / toggle button ── */
+.gbubble-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  color: var(--muted, #6e6e73);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+body.dark .gbubble-icon-btn {
+  color: var(--muted, #98989d);
+}
+
+/* ── Divider ── */
+.gbubble-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border, #e0e0e5);
+  flex-shrink: 0;
+  transform-origin: center;
+}
+
+body.dark .gbubble-divider {
+  background: var(--border, #3a3a3c);
+}
+
+/* ── User avatar wrap (for online dot positioning) ── */
+.gbubble-user-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* ── User avatar button ── */
+.gbubble-user-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.gbubble-user-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.gbubble-user-initials {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.6);
+  letter-spacing: -0.02em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ── Name tooltip ── */
+.gbubble-user-wrap[data-label]::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.85);
+  transform-origin: bottom center;
+  background: rgba(0, 0, 0, 0.78);
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 4px 8px;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.gbubble-user-wrap[data-label]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+body.dark .gbubble-user-wrap[data-label]::after {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+}
+
+/* ── Online dot ── */
+.gbubble-online-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid var(--gbubble-bg, #ffffff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gbubble-online-ping {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: #22c55e;
+  opacity: 0.4;
+  animation: gbubble-ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes gbubble-ping {
+  0%   { transform: scale(1);   opacity: 0.4; }
+  75%  { transform: scale(2);   opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* ── Inline input ── */
+.gbubble-input {
+  flex: 1;
+  min-width: 0;
+  height: 34px;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 13px;
+  color: #1d1d1f;
+  outline: none;
+  padding: 0 6px;
+}
+
+.gbubble-input::placeholder {
+  color: rgba(0, 0, 0, 0.35);
+}
+
+body.dark .gbubble-input {
+  color: #1d1d1f;
+}
+
+body.dark .gbubble-input::placeholder {
+  color: rgba(0, 0, 0, 0.35);
+}
+
+/* ── Send button ── */
+.gbubble-send-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent, #e8621a);
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.gbubble-send-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.gbubble-send-btn--sent {
+  background: #22c55e;
+}
+
+/* ── Spinner ── */
+.gbubble-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: gbubble-spin 0.7s linear infinite;
+}
+
+@keyframes gbubble-spin {
+  to { transform: rotate(360deg); }
+}

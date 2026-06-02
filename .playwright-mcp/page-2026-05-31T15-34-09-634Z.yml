@@ -1,0 +1,73 @@
+- generic [ref=e2]:
+  - button "Menu utilisateur" [ref=e5]:
+    - img "Antigone Administrator" [ref=e7] [cursor=pointer]
+  - generic [ref=e10]:
+    - img "Antigone" [ref=e13] [cursor=pointer]
+    - navigation [ref=e14]:
+      - link "Accueil" [ref=e16] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Clients" [ref=e18] [cursor=pointer]:
+        - /url: /about
+      - link "Aperçu" [ref=e20] [cursor=pointer]:
+        - /url: /apercu
+      - navigation "Main" [ref=e22]:
+        - list [ref=e24]:
+          - listitem [ref=e25]:
+            - button "Encaissements" [ref=e26]:
+              - text: Encaissements
+              - img [ref=e27]
+      - navigation "Main" [ref=e30]:
+        - list [ref=e32]:
+          - listitem [ref=e33]:
+            - button "Décaissements" [ref=e34]:
+              - text: Décaissements
+              - img [ref=e35]
+    - link "Créateur de Factures" [ref=e39] [cursor=pointer]:
+      - /url: /invoice
+  - generic [ref=e40]:
+    - generic [ref=e42]:
+      - link "Clients" [ref=e44] [cursor=pointer]:
+        - /url: /about
+      - link "Contacts" [ref=e46] [cursor=pointer]:
+        - /url: /contacts
+    - generic [ref=e47]:
+      - generic [ref=e48]:
+        - heading "Clients" [level=1] [ref=e49]
+        - paragraph [ref=e50]: 1 client actif
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - button "Vue grille" [ref=e53] [cursor=pointer]:
+            - img [ref=e54]
+          - button "Vue tableau" [ref=e59] [cursor=pointer]:
+            - img [ref=e60]
+        - button "Ajouter un client" [ref=e61] [cursor=pointer]:
+          - img [ref=e62]
+          - text: Ajouter un client
+    - generic [ref=e482]:
+      - generic [ref=e483]:
+        - generic [ref=e484]: T
+        - generic [ref=e485]:
+          - generic [ref=e486]: Test
+          - generic [ref=e487]: Tech · Tunis · Tunisie
+        - generic [ref=e488]:
+          - button "Modifier" [ref=e489] [cursor=pointer]:
+            - img [ref=e490]
+          - button "Archiver" [ref=e493] [cursor=pointer]:
+            - img [ref=e494]
+      - generic [ref=e497]:
+        - generic [ref=e498]:
+          - generic [ref=e499]: Matricule Fiscale
+          - generic [ref=e500]: 123/A/B/000
+        - generic [ref=e501]:
+          - generic [ref=e502]: RNE
+          - generic [ref=e503]: B987
+        - generic [ref=e504]:
+          - generic [ref=e505]: Adresse
+          - generic [ref=e506]: Av Liberté
+        - generic [ref=e507]:
+          - generic [ref=e508]: Email
+          - generic [ref=e509]: finance@test.com
+  - button "Activer mode privé" [ref=e72] [cursor=pointer]:
+    - img [ref=e73]
+  - button "Switch theme" [ref=e78] [cursor=pointer]:
+    - img [ref=e81]

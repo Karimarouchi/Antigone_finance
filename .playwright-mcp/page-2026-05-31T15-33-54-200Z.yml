@@ -1,0 +1,411 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - button "Menu utilisateur" [ref=e5]:
+      - img "Antigone Administrator" [ref=e7] [cursor=pointer]
+    - generic [ref=e10]:
+      - img "Antigone" [ref=e13] [cursor=pointer]
+      - navigation [ref=e14]:
+        - link "Accueil" [ref=e16] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Clients" [ref=e18] [cursor=pointer]:
+          - /url: /about
+        - link "Aperçu" [ref=e20] [cursor=pointer]:
+          - /url: /apercu
+        - navigation "Main" [ref=e22]:
+          - list [ref=e24]:
+            - listitem [ref=e25]:
+              - button "Encaissements" [ref=e26]:
+                - text: Encaissements
+                - img [ref=e27]
+        - navigation "Main" [ref=e30]:
+          - list [ref=e32]:
+            - listitem [ref=e33]:
+              - button "Décaissements" [ref=e34]:
+                - text: Décaissements
+                - img [ref=e35]
+      - link "Créateur de Factures" [ref=e39] [cursor=pointer]:
+        - /url: /invoice
+    - generic [ref=e40]:
+      - generic [ref=e42]:
+        - link "Clients" [ref=e44] [cursor=pointer]:
+          - /url: /about
+        - link "Contacts" [ref=e46] [cursor=pointer]:
+          - /url: /contacts
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - heading "Clients" [level=1] [ref=e49]
+          - paragraph [ref=e50]: 0 clients actifs
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - button "Vue grille" [ref=e53] [cursor=pointer]:
+              - img [ref=e54]
+            - button "Vue tableau" [ref=e59] [cursor=pointer]:
+              - img [ref=e60]
+          - button "Ajouter un client" [ref=e61] [cursor=pointer]:
+            - img [ref=e62]
+            - text: Ajouter un client
+      - generic [ref=e63]:
+        - img [ref=e65]
+        - generic [ref=e70]: Aucun client actif
+        - generic [ref=e71]: Ajoutez votre premier client pour commencer.
+      - generic [ref=e84]:
+        - generic [ref=e85]:
+          - img [ref=e87]
+          - generic [ref=e92]:
+            - generic [ref=e93]: Nouveau client
+            - generic [ref=e94]: Remplissez les informations pour ajouter un client à votre portefeuille.
+          - button [ref=e95] [cursor=pointer]:
+            - img [ref=e96]
+        - generic [ref=e99]:
+          - generic [ref=e100]:
+            - generic [ref=e101]:
+              - img [ref=e102]
+              - generic [ref=e105]: Société
+            - generic [ref=e106]:
+              - generic [ref=e107]:
+                - generic [ref=e108]:
+                  - generic [ref=e109]: Dénomination Légale *
+                  - 'textbox "ex: Antigone Creative Agency" [ref=e110]': Test SA
+                - generic [ref=e111]:
+                  - generic [ref=e112]: Dénomination Commerciale
+                  - 'textbox "ex: Antigone" [ref=e113]': Test
+              - generic [ref=e114]:
+                - generic [ref=e115]:
+                  - generic [ref=e116]: Matricule Fiscale
+                  - 'textbox "ex: 001365/W/A/M/000" [ref=e117]': 123/A/B/000
+                - generic [ref=e118]:
+                  - generic [ref=e119]: RNE / Immatriculation
+                  - 'textbox "ex: B123456789" [ref=e120]': B987
+              - generic [ref=e121]:
+                - generic [ref=e122]: Secteur d'activité
+                - 'textbox "ex: Design, Tech, Restauration…" [ref=e123]': Tech
+          - generic [ref=e124]:
+            - generic [ref=e125]:
+              - img [ref=e126]
+              - generic [ref=e129]: Email
+            - generic [ref=e130]:
+              - generic [ref=e131]:
+                - generic [ref=e132]: Email (service financier)
+                - 'textbox "ex: finance@client.com" [ref=e133]': finance@test.com
+              - generic [ref=e134]:
+                - generic [ref=e135]:
+                  - generic [ref=e136]: Nom du destinataire
+                  - 'textbox "ex: Ben Salah" [ref=e137]': Ali
+                - generic [ref=e138]:
+                  - generic [ref=e139]: Civilité
+                  - button "M." [ref=e212] [cursor=pointer]:
+                    - generic [ref=e142]: M.
+                    - img [ref=e143]
+          - generic [ref=e145]:
+            - generic [ref=e146]:
+              - img [ref=e147]
+              - generic [ref=e150]: Localisation
+            - generic [ref=e151]:
+              - generic [ref=e152]:
+                - generic [ref=e153]:
+                  - generic [ref=e154]: Pays
+                  - button "— Sélectionner —" [active] [ref=e156] [cursor=pointer]:
+                    - generic [ref=e157]: — Sélectionner —
+                    - img [ref=e158]
+                - generic [ref=e160]:
+                  - generic [ref=e161]: Ville
+                  - 'textbox "ex: Tunis" [ref=e162]': Tunis
+              - generic [ref=e163]:
+                - generic [ref=e164]: Adresse
+                - 'textbox "ex: 12 Rue de la Liberté" [ref=e165]': Av Liberté
+          - generic [ref=e166]:
+            - generic [ref=e167]:
+              - img [ref=e168]
+              - generic [ref=e171]: Facturation
+            - generic [ref=e172]:
+              - generic [ref=e173]:
+                - generic [ref=e174]: Date d'adhésion
+                - textbox "Sélectionner une date" [ref=e175] [cursor=pointer]
+              - generic [ref=e176]:
+                - generic [ref=e177]: Cycle de facturation
+                - button "— Sélectionner —" [ref=e179] [cursor=pointer]:
+                  - generic [ref=e180]: — Sélectionner —
+                  - img [ref=e181]
+          - generic [ref=e183]:
+            - generic [ref=e184]:
+              - img [ref=e185]
+              - generic [ref=e189]: Logo
+            - generic [ref=e191] [cursor=pointer]:
+              - button "Choose File" [ref=e192]
+              - img [ref=e194]
+              - generic [ref=e197]:
+                - strong [ref=e198]: Glissez le logo ici
+                - text: ou cliquez pour parcourir
+              - generic [ref=e199]: PNG, JPG, SVG — max 2 Mo
+        - generic [ref=e200]:
+          - button "Annuler" [ref=e201] [cursor=pointer]
+          - button "Enregistrer" [ref=e202] [cursor=pointer]
+    - button "Activer mode privé" [ref=e72] [cursor=pointer]:
+      - img [ref=e73]
+    - button "Switch theme" [ref=e78] [cursor=pointer]:
+      - img [ref=e81]
+  - generic [ref=e214]:
+    - button "— Sélectionner —" [ref=e215] [cursor=pointer]:
+      - generic [ref=e216]: — Sélectionner —
+    - button "Afghanistan" [ref=e218] [cursor=pointer]:
+      - generic [ref=e219]: Afghanistan
+    - button "Afrique du Sud" [ref=e220] [cursor=pointer]:
+      - generic [ref=e221]: Afrique du Sud
+    - button "Albanie" [ref=e222] [cursor=pointer]:
+      - generic [ref=e223]: Albanie
+    - button "Algérie" [ref=e224] [cursor=pointer]:
+      - generic [ref=e225]: Algérie
+    - button "Allemagne" [ref=e226] [cursor=pointer]:
+      - generic [ref=e227]: Allemagne
+    - button "Angola" [ref=e228] [cursor=pointer]:
+      - generic [ref=e229]: Angola
+    - button "Arabie saoudite" [ref=e230] [cursor=pointer]:
+      - generic [ref=e231]: Arabie saoudite
+    - button "Argentine" [ref=e232] [cursor=pointer]:
+      - generic [ref=e233]: Argentine
+    - button "Arménie" [ref=e234] [cursor=pointer]:
+      - generic [ref=e235]: Arménie
+    - button "Australie" [ref=e236] [cursor=pointer]:
+      - generic [ref=e237]: Australie
+    - button "Autriche" [ref=e238] [cursor=pointer]:
+      - generic [ref=e239]: Autriche
+    - button "Azerbaïdjan" [ref=e240] [cursor=pointer]:
+      - generic [ref=e241]: Azerbaïdjan
+    - button "Bahreïn" [ref=e242] [cursor=pointer]:
+      - generic [ref=e243]: Bahreïn
+    - button "Bangladesh" [ref=e244] [cursor=pointer]:
+      - generic [ref=e245]: Bangladesh
+    - button "Belgique" [ref=e246] [cursor=pointer]:
+      - generic [ref=e247]: Belgique
+    - button "Bénin" [ref=e248] [cursor=pointer]:
+      - generic [ref=e249]: Bénin
+    - button "Biélorussie" [ref=e250] [cursor=pointer]:
+      - generic [ref=e251]: Biélorussie
+    - button "Bolivie" [ref=e252] [cursor=pointer]:
+      - generic [ref=e253]: Bolivie
+    - button "Bosnie-Herzégovine" [ref=e254] [cursor=pointer]:
+      - generic [ref=e255]: Bosnie-Herzégovine
+    - button "Brésil" [ref=e256] [cursor=pointer]:
+      - generic [ref=e257]: Brésil
+    - button "Bulgarie" [ref=e258] [cursor=pointer]:
+      - generic [ref=e259]: Bulgarie
+    - button "Burkina Faso" [ref=e260] [cursor=pointer]:
+      - generic [ref=e261]: Burkina Faso
+    - button "Burundi" [ref=e262] [cursor=pointer]:
+      - generic [ref=e263]: Burundi
+    - button "Cameroun" [ref=e264] [cursor=pointer]:
+      - generic [ref=e265]: Cameroun
+    - button "Canada" [ref=e266] [cursor=pointer]:
+      - generic [ref=e267]: Canada
+    - button "Chili" [ref=e268] [cursor=pointer]:
+      - generic [ref=e269]: Chili
+    - button "Chine" [ref=e270] [cursor=pointer]:
+      - generic [ref=e271]: Chine
+    - button "Chypre" [ref=e272] [cursor=pointer]:
+      - generic [ref=e273]: Chypre
+    - button "Colombie" [ref=e274] [cursor=pointer]:
+      - generic [ref=e275]: Colombie
+    - button "Congo" [ref=e276] [cursor=pointer]:
+      - generic [ref=e277]: Congo
+    - button "Corée du Sud" [ref=e278] [cursor=pointer]:
+      - generic [ref=e279]: Corée du Sud
+    - button "Côte d'Ivoire" [ref=e280] [cursor=pointer]:
+      - generic [ref=e281]: Côte d'Ivoire
+    - button "Croatie" [ref=e282] [cursor=pointer]:
+      - generic [ref=e283]: Croatie
+    - button "Cuba" [ref=e284] [cursor=pointer]:
+      - generic [ref=e285]: Cuba
+    - button "Danemark" [ref=e286] [cursor=pointer]:
+      - generic [ref=e287]: Danemark
+    - button "Égypte" [ref=e288] [cursor=pointer]:
+      - generic [ref=e289]: Égypte
+    - button "Émirats arabes unis" [ref=e290] [cursor=pointer]:
+      - generic [ref=e291]: Émirats arabes unis
+    - button "Équateur" [ref=e292] [cursor=pointer]:
+      - generic [ref=e293]: Équateur
+    - button "Espagne" [ref=e294] [cursor=pointer]:
+      - generic [ref=e295]: Espagne
+    - button "Estonie" [ref=e296] [cursor=pointer]:
+      - generic [ref=e297]: Estonie
+    - button "Éthiopie" [ref=e298] [cursor=pointer]:
+      - generic [ref=e299]: Éthiopie
+    - button "États-Unis" [ref=e300] [cursor=pointer]:
+      - generic [ref=e301]: États-Unis
+    - button "Finlande" [ref=e302] [cursor=pointer]:
+      - generic [ref=e303]: Finlande
+    - button "France" [ref=e304] [cursor=pointer]:
+      - generic [ref=e305]: France
+    - button "Gabon" [ref=e306] [cursor=pointer]:
+      - generic [ref=e307]: Gabon
+    - button "Ghana" [ref=e308] [cursor=pointer]:
+      - generic [ref=e309]: Ghana
+    - button "Grèce" [ref=e310] [cursor=pointer]:
+      - generic [ref=e311]: Grèce
+    - button "Guatemala" [ref=e312] [cursor=pointer]:
+      - generic [ref=e313]: Guatemala
+    - button "Guinée" [ref=e314] [cursor=pointer]:
+      - generic [ref=e315]: Guinée
+    - button "Haïti" [ref=e316] [cursor=pointer]:
+      - generic [ref=e317]: Haïti
+    - button "Hongrie" [ref=e318] [cursor=pointer]:
+      - generic [ref=e319]: Hongrie
+    - button "Inde" [ref=e320] [cursor=pointer]:
+      - generic [ref=e321]: Inde
+    - button "Indonésie" [ref=e322] [cursor=pointer]:
+      - generic [ref=e323]: Indonésie
+    - button "Irak" [ref=e324] [cursor=pointer]:
+      - generic [ref=e325]: Irak
+    - button "Iran" [ref=e326] [cursor=pointer]:
+      - generic [ref=e327]: Iran
+    - button "Irlande" [ref=e328] [cursor=pointer]:
+      - generic [ref=e329]: Irlande
+    - button "Islande" [ref=e330] [cursor=pointer]:
+      - generic [ref=e331]: Islande
+    - button "Israël" [ref=e332] [cursor=pointer]:
+      - generic [ref=e333]: Israël
+    - button "Italie" [ref=e334] [cursor=pointer]:
+      - generic [ref=e335]: Italie
+    - button "Jamaïque" [ref=e336] [cursor=pointer]:
+      - generic [ref=e337]: Jamaïque
+    - button "Japon" [ref=e338] [cursor=pointer]:
+      - generic [ref=e339]: Japon
+    - button "Jordanie" [ref=e340] [cursor=pointer]:
+      - generic [ref=e341]: Jordanie
+    - button "Kazakhstan" [ref=e342] [cursor=pointer]:
+      - generic [ref=e343]: Kazakhstan
+    - button "Kenya" [ref=e344] [cursor=pointer]:
+      - generic [ref=e345]: Kenya
+    - button "Koweït" [ref=e346] [cursor=pointer]:
+      - generic [ref=e347]: Koweït
+    - button "Laos" [ref=e348] [cursor=pointer]:
+      - generic [ref=e349]: Laos
+    - button "Lettonie" [ref=e350] [cursor=pointer]:
+      - generic [ref=e351]: Lettonie
+    - button "Liban" [ref=e352] [cursor=pointer]:
+      - generic [ref=e353]: Liban
+    - button "Libye" [ref=e354] [cursor=pointer]:
+      - generic [ref=e355]: Libye
+    - button "Lituanie" [ref=e356] [cursor=pointer]:
+      - generic [ref=e357]: Lituanie
+    - button "Luxembourg" [ref=e358] [cursor=pointer]:
+      - generic [ref=e359]: Luxembourg
+    - button "Madagascar" [ref=e360] [cursor=pointer]:
+      - generic [ref=e361]: Madagascar
+    - button "Mali" [ref=e362] [cursor=pointer]:
+      - generic [ref=e363]: Mali
+    - button "Maroc" [ref=e364] [cursor=pointer]:
+      - generic [ref=e365]: Maroc
+    - button "Maurice" [ref=e366] [cursor=pointer]:
+      - generic [ref=e367]: Maurice
+    - button "Mauritanie" [ref=e368] [cursor=pointer]:
+      - generic [ref=e369]: Mauritanie
+    - button "Mexique" [ref=e370] [cursor=pointer]:
+      - generic [ref=e371]: Mexique
+    - button "Moldavie" [ref=e372] [cursor=pointer]:
+      - generic [ref=e373]: Moldavie
+    - button "Mongolie" [ref=e374] [cursor=pointer]:
+      - generic [ref=e375]: Mongolie
+    - button "Mozambique" [ref=e376] [cursor=pointer]:
+      - generic [ref=e377]: Mozambique
+    - button "Myanmar" [ref=e378] [cursor=pointer]:
+      - generic [ref=e379]: Myanmar
+    - button "Namibie" [ref=e380] [cursor=pointer]:
+      - generic [ref=e381]: Namibie
+    - button "Népal" [ref=e382] [cursor=pointer]:
+      - generic [ref=e383]: Népal
+    - button "Nicaragua" [ref=e384] [cursor=pointer]:
+      - generic [ref=e385]: Nicaragua
+    - button "Niger" [ref=e386] [cursor=pointer]:
+      - generic [ref=e387]: Niger
+    - button "Nigéria" [ref=e388] [cursor=pointer]:
+      - generic [ref=e389]: Nigéria
+    - button "Norvège" [ref=e390] [cursor=pointer]:
+      - generic [ref=e391]: Norvège
+    - button "Nouvelle-Zélande" [ref=e392] [cursor=pointer]:
+      - generic [ref=e393]: Nouvelle-Zélande
+    - button "Oman" [ref=e394] [cursor=pointer]:
+      - generic [ref=e395]: Oman
+    - button "Ouganda" [ref=e396] [cursor=pointer]:
+      - generic [ref=e397]: Ouganda
+    - button "Ouzbékistan" [ref=e398] [cursor=pointer]:
+      - generic [ref=e399]: Ouzbékistan
+    - button "Pakistan" [ref=e400] [cursor=pointer]:
+      - generic [ref=e401]: Pakistan
+    - button "Palestine" [ref=e402] [cursor=pointer]:
+      - generic [ref=e403]: Palestine
+    - button "Panama" [ref=e404] [cursor=pointer]:
+      - generic [ref=e405]: Panama
+    - button "Paraguay" [ref=e406] [cursor=pointer]:
+      - generic [ref=e407]: Paraguay
+    - button "Pays-Bas" [ref=e408] [cursor=pointer]:
+      - generic [ref=e409]: Pays-Bas
+    - button "Pérou" [ref=e410] [cursor=pointer]:
+      - generic [ref=e411]: Pérou
+    - button "Philippines" [ref=e412] [cursor=pointer]:
+      - generic [ref=e413]: Philippines
+    - button "Pologne" [ref=e414] [cursor=pointer]:
+      - generic [ref=e415]: Pologne
+    - button "Portugal" [ref=e416] [cursor=pointer]:
+      - generic [ref=e417]: Portugal
+    - button "Qatar" [ref=e418] [cursor=pointer]:
+      - generic [ref=e419]: Qatar
+    - button "République dominicaine" [ref=e420] [cursor=pointer]:
+      - generic [ref=e421]: République dominicaine
+    - button "Roumanie" [ref=e422] [cursor=pointer]:
+      - generic [ref=e423]: Roumanie
+    - button "Royaume-Uni" [ref=e424] [cursor=pointer]:
+      - generic [ref=e425]: Royaume-Uni
+    - button "Russie" [ref=e426] [cursor=pointer]:
+      - generic [ref=e427]: Russie
+    - button "Rwanda" [ref=e428] [cursor=pointer]:
+      - generic [ref=e429]: Rwanda
+    - button "Sénégal" [ref=e430] [cursor=pointer]:
+      - generic [ref=e431]: Sénégal
+    - button "Serbie" [ref=e432] [cursor=pointer]:
+      - generic [ref=e433]: Serbie
+    - button "Sierra Leone" [ref=e434] [cursor=pointer]:
+      - generic [ref=e435]: Sierra Leone
+    - button "Singapour" [ref=e436] [cursor=pointer]:
+      - generic [ref=e437]: Singapour
+    - button "Slovaquie" [ref=e438] [cursor=pointer]:
+      - generic [ref=e439]: Slovaquie
+    - button "Slovénie" [ref=e440] [cursor=pointer]:
+      - generic [ref=e441]: Slovénie
+    - button "Somalie" [ref=e442] [cursor=pointer]:
+      - generic [ref=e443]: Somalie
+    - button "Soudan" [ref=e444] [cursor=pointer]:
+      - generic [ref=e445]: Soudan
+    - button "Sri Lanka" [ref=e446] [cursor=pointer]:
+      - generic [ref=e447]: Sri Lanka
+    - button "Suède" [ref=e448] [cursor=pointer]:
+      - generic [ref=e449]: Suède
+    - button "Suisse" [ref=e450] [cursor=pointer]:
+      - generic [ref=e451]: Suisse
+    - button "Syrie" [ref=e452] [cursor=pointer]:
+      - generic [ref=e453]: Syrie
+    - button "Tanzanie" [ref=e454] [cursor=pointer]:
+      - generic [ref=e455]: Tanzanie
+    - button "Tchad" [ref=e456] [cursor=pointer]:
+      - generic [ref=e457]: Tchad
+    - button "Thaïlande" [ref=e458] [cursor=pointer]:
+      - generic [ref=e459]: Thaïlande
+    - button "Togo" [ref=e460] [cursor=pointer]:
+      - generic [ref=e461]: Togo
+    - button "Tunisie" [ref=e462] [cursor=pointer]:
+      - generic [ref=e463]: Tunisie
+    - button "Turquie" [ref=e464] [cursor=pointer]:
+      - generic [ref=e465]: Turquie
+    - button "Ukraine" [ref=e466] [cursor=pointer]:
+      - generic [ref=e467]: Ukraine
+    - button "Uruguay" [ref=e468] [cursor=pointer]:
+      - generic [ref=e469]: Uruguay
+    - button "Venezuela" [ref=e470] [cursor=pointer]:
+      - generic [ref=e471]: Venezuela
+    - button "Viêt Nam" [ref=e472] [cursor=pointer]:
+      - generic [ref=e473]: Viêt Nam
+    - button "Yémen" [ref=e474] [cursor=pointer]:
+      - generic [ref=e475]: Yémen
+    - button "Zambie" [ref=e476] [cursor=pointer]:
+      - generic [ref=e477]: Zambie
+    - button "Zimbabwe" [ref=e478] [cursor=pointer]:
+      - generic [ref=e479]: Zimbabwe
