@@ -22,6 +22,15 @@
         <jjwt.version>0.12.6</jjwt.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>10.1.55</version>
+        </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
