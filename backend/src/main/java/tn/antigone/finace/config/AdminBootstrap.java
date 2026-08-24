@@ -19,7 +19,7 @@ import java.util.List;
  *
  * Credentials:
  *   email    : Admin@Antigoneagency.com
- *   password : Admin@123
+ *   password : Admin@123456
  *
  * Idempotent: if the account already exists the runner is a no-op
  * (but it WILL upgrade an existing account to role=super_admin if needed).
@@ -30,7 +30,7 @@ import java.util.List;
 public class AdminBootstrap {
 
     private static final String ADMIN_EMAIL    = "Admin@Antigoneagency.com";
-    private static final String ADMIN_PASSWORD = "Admin@123";
+    private static final String ADMIN_PASSWORD = "Admin@123456";
     private static final String ADMIN_NAME     = "Antigone Administrator";
 
     /** Every feature ID currently defined in the app (mirrors `config/features.ts`). */

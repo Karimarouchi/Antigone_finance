@@ -87,6 +87,8 @@ export interface StandaloneNavItem {
   id: string
   /** Display label */
   label: string
+  /** Optional short text for admin feature assignment */
+  description?: string
   /** App Router href */
   href: string
   /** Lucide icon name */

@@ -34,6 +34,9 @@ services:
       DB_USER: ${POSTGRES_USER:-finace}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
       STORAGE_PATH: /var/lib/finace/storage
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-disabled}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-disabled}
+      SPRING_AUTOCONFIGURE_EXCLUDE: org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration
     volumes:
       - finace_storage:/var/lib/finace/storage
     ports:
@@ -48,7 +51,8 @@ services:
         VITE_WS_URL: ${VITE_WS_URL:-https://finance.autolifeservices.com/ws}
     restart: unless-stopped
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     ports:
       - "127.0.0.1:${FRONTEND_PORT:-3081}:80"
 
