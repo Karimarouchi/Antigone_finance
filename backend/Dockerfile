@@ -15,7 +15,7 @@ COPY --from=build /app/target/*.jar /app/app.jar
 
 ENV JAVA_OPTS="-Xms256m -Xmx512m"
 EXPOSE 8080
-HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=5 \
+HEALTHCHECK --interval=30s --timeout=5s --start-period=180s --retries=5 \
   CMD curl -fsS http://127.0.0.1:8080/actuator/health || exit 1
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]

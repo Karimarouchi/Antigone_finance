@@ -1,4 +1,61 @@
 # Medianet / VPS : git pull && docker compose up -d --build
-# Démarre db + backend + frontend (défini dans docker-compose.prod.yml).
-include:
-  - docker-compose.prod.yml
+# Démarre db + backend + frontend. Nginx hôte n’est pas géré ici.
+name: antigone-finance
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-finace}
+      POSTGRES_USER: ${POSTGRES_USER:-finace}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - finace_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-finace} -d ${POSTGRES_DB:-finace}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      SERVER_PORT: 8080
+      DB_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-finace}?stringtype=unspecified
+      DB_USER: ${POSTGRES_USER:-finace}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      STORAGE_PATH: /var/lib/finace/storage
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-disabled}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-disabled}
+      SPRING_AUTOCONFIGURE_EXCLUDE: org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration
+    volumes:
+      - finace_storage:/var/lib/finace/storage
+    ports:
+      - "127.0.0.1:${BACKEND_PORT:-18081}:8080"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-}
+        VITE_WS_URL: ${VITE_WS_URL:-https://finance.autolifeservices.com/ws}
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_started
+    ports:
+      - "127.0.0.1:${FRONTEND_PORT:-3081}:80"
+
+volumes:
+  finace_pg_data:
+  finace_storage:
