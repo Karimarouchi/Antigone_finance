@@ -2,7 +2,9 @@ import { Client, IMessage } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { loadSession } from './api';
 
-const WS_URL = (import.meta.env.VITE_WS_URL as string) || 'http://localhost:8080/ws';
+const WS_URL =
+  (import.meta.env.VITE_WS_URL as string) ||
+  (typeof window !== 'undefined' ? `${window.location.origin}/ws` : 'http://localhost:8080/ws');
 
 let client: Client | null = null;
 const subscriptions = new Map<string, Set<(msg: unknown) => void>>();

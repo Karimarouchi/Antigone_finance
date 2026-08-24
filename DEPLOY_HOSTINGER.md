@@ -1,267 +1,190 @@
-# Déploiement sur Hostinger (VPS KVM)
+# Déploiement sur le VPS existant (même machine que le PFE)
 
-Cible : un VPS Hostinger sous Ubuntu 22.04 LTS exécutant le backend Spring Boot,
-PostgreSQL 16 et le frontend statique Vite, exposé via Nginx + Certbot (TLS).
+IP VPS : **187.127.94.149** (`srv1848338`)  
+Domaine : **https://finance.autolifeservices.com**  
+PFE déjà en place : `/var/www/pfe/MEDIANET_PFE-` (ports **3080** et **18080**)
 
-> Le projet utilise **Java 21** et **Node 20+**. Vérifier que le plan VPS
-> dispose d'au moins **2 vCPU / 2 Go de RAM** (le démarrage de Spring Boot +
-> PostgreSQL est lourd sur 1 Go).
+Cette app tourne **à côté**, en Docker, sur **3081** / **18081**.  
+Nginx hôte (déjà installé) route le sous-domaine, comme `pfe-vulnix`.
+
+Ne **pas** réutiliser les ports 80, 443, 8080, 3080, 18080.
 
 ---
 
-## 1. Préparation du VPS
+## 1. DNS Hostinger
+
+Sur `autolifeservices.com` → **DNS / Nameservers** → **Edit**  
+(ne change **pas** les nameservers, l’email continue de marcher) :
+
+| Type | Name     | Points to       | TTL |
+|------|----------|-----------------|-----|
+| A    | `finance`| `187.127.94.149`| 300 |
+
+Vérifier :
 
 ```bash
-# en root
-apt update && apt upgrade -y
-apt install -y curl gnupg2 ca-certificates lsb-release ufw \
-               openjdk-21-jre-headless postgresql-16 postgresql-contrib \
-               nginx certbot python3-certbot-nginx
-
-# Utilisateur de service
-adduser --system --group --home /opt/finace finace
-mkdir -p /opt/finace /etc/finace /var/log/finace /var/www/finace-frontend /var/lib/finace/storage
-chown -R finace:finace /opt/finace /var/log/finace /var/lib/finace
-```
-
-Firewall :
-
-```bash
-ufw allow OpenSSH
-ufw allow "Nginx Full"
-ufw enable
+ping finance.autolifeservices.com
+# doit afficher 187.127.94.149
 ```
 
 ---
 
-## 2. PostgreSQL
+## 2. Clone + Docker (sur le VPS, en root)
 
 ```bash
-sudo -u postgres psql <<'SQL'
-CREATE USER finace WITH PASSWORD 'CHANGE_ME_strong_password';
-CREATE DATABASE finace OWNER finace;
-GRANT ALL PRIVILEGES ON DATABASE finace TO finace;
-SQL
+cd /var/www
+git clone https://github.com/Karimarouchi/Antigone_finance.git finance
+cd /var/www/finance
 ```
 
-Les migrations Flyway s'exécutent automatiquement au démarrage du backend.
+Si les fichiers Docker ne sont pas encore sur GitHub, ils sont listés plus bas (à créer avec `nano` / heredoc).
 
 ---
 
-## 3. Build local et upload
-
-Sur la machine de dev :
-
-```powershell
-# Backend
-cd backend
-mvn -DskipTests package
-# -> target/finace-1.0.0.jar
-
-# Frontend
-cd ../frontend
-npm ci
-npm run build
-# -> dist/
-```
-
-Upload :
-
-```powershell
-scp backend/target/finace-1.0.0.jar         root@VPS:/opt/finace/finace.jar
-scp -r frontend/dist/*                      root@VPS:/var/www/finace-frontend/
-```
-
-Sur le VPS :
+## 3. `.env` production
 
 ```bash
-chown finace:finace /opt/finace/finace.jar
-chown -R www-data:www-data /var/www/finace-frontend
+cd /var/www/finance
+cp .env.prod.example .env
+# ou, si le fichier n'existe pas encore dans le clone :
+# nano .env
 ```
 
----
+Contenu minimum (remplace les `CHANGE_ME`) :
 
-## 4. Configuration `/etc/finace/.env`
+```env
+POSTGRES_DB=finace
+POSTGRES_USER=finace
+POSTGRES_PASSWORD=CHANGE_ME_STRONG_PASSWORD
 
-```bash
-cat > /etc/finace/.env <<'ENV'
-SPRING_PROFILES_ACTIVE=prod
-SERVER_PORT=8080
+FRONTEND_PORT=3081
+BACKEND_PORT=18081
 
-SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/finace
-SPRING_DATASOURCE_USERNAME=finace
-SPRING_DATASOURCE_PASSWORD=CHANGE_ME_strong_password
+JWT_SECRET=COLLE_ICI_openssl_rand_-base64_64
+JWT_ACCESS_TTL_MINUTES=30
+JWT_REFRESH_TTL_DAYS=14
 
-APP_JWT_SECRET=CHANGE_ME_minimum_64_caracteres_aleatoires_pour_HS256
-APP_JWT_ACCESS_TTL_MINUTES=30
-APP_JWT_REFRESH_TTL_DAYS=14
+CORS_ORIGINS=https://finance.autolifeservices.com
+APP_BASE_URL=https://finance.autolifeservices.com
+FRONTEND_BASE_URL=https://finance.autolifeservices.com
 
-APP_STORAGE_PATH=/var/lib/finace/storage
-APP_PUBLIC_URL=https://finace.exemple.tn
+MAIL_HOST=smtp.hostinger.com
+MAIL_PORT=587
+MAIL_USERNAME=noreply@autolifeservices.com
+MAIL_PASSWORD=CHANGE_ME_EMAIL_PASSWORD
+MAIL_FROM=Finance Antigone <noreply@autolifeservices.com>
 
-# OAuth Google (optionnel)
-APP_OAUTH_GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
 
-# Mail (optionnel - sinon laisser vide)
-SPRING_MAIL_HOST=smtp.hostinger.com
-SPRING_MAIL_PORT=587
-SPRING_MAIL_USERNAME=no-reply@exemple.tn
-SPRING_MAIL_PASSWORD=APP_PASSWORD
-SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
-ENV
-chmod 600 /etc/finace/.env
-chown finace:finace /etc/finace/.env
+VITE_API_URL=
+VITE_WS_URL=https://finance.autolifeservices.com/ws
 ```
 
-> **Sécurité** : régénérer `APP_JWT_SECRET` avec
-> `openssl rand -base64 64`. Ne JAMAIS commiter ce fichier.
-
----
-
-## 5. Service systemd `finace.service`
+Générer le JWT :
 
 ```bash
-cat > /etc/systemd/system/finace.service <<'UNIT'
-[Unit]
-Description=Finace Spring Boot backend
-After=network.target postgresql.service
-Wants=postgresql.service
+openssl rand -base64 64
+```
 
-[Service]
-Type=simple
-User=finace
-Group=finace
-EnvironmentFile=/etc/finace/.env
-WorkingDirectory=/opt/finace
-ExecStart=/usr/bin/java -Xms256m -Xmx768m -jar /opt/finace/finace.jar
-Restart=on-failure
-RestartSec=5
-StandardOutput=append:/var/log/finace/app.log
-StandardError=append:/var/log/finace/app.log
-
-# Hardening
-NoNewPrivileges=true
-PrivateTmp=true
-ProtectSystem=strict
-ProtectHome=true
-ReadWritePaths=/var/lib/finace /var/log/finace
-
-[Install]
-WantedBy=multi-user.target
-UNIT
-
-systemctl daemon-reload
-systemctl enable --now finace
-systemctl status finace --no-pager
-journalctl -u finace -f       # voir les logs en direct
+```bash
+chmod 600 /var/www/finance/.env
 ```
 
 ---
 
-## 6. Nginx (reverse proxy + frontend statique)
+## 4. Nginx hôte (comme `pfe-vulnix`)
 
 ```bash
-cat > /etc/nginx/sites-available/finace <<'NGX'
+nano /etc/nginx/sites-available/finance
+```
+
+```nginx
 server {
     listen 80;
-    server_name finace.exemple.tn;
+    server_name finance.autolifeservices.com;
 
-    # Frontend statique
-    root /var/www/finace-frontend;
-    index index.html;
+    client_max_body_size 25m;
 
-    # SPA fallback
     location / {
-        try_files $uri $uri/ /index.html;
-    }
-
-    # API REST
-    location /api/ {
-        proxy_pass         http://127.0.0.1:8080;
+        proxy_pass http://127.0.0.1:3081;
         proxy_http_version 1.1;
-        proxy_set_header   Host              $host;
-        proxy_set_header   X-Real-IP         $remote_addr;
-        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header   X-Forwarded-Proto $scheme;
-        client_max_body_size 25m;
-    }
-
-    # WebSocket STOMP/SockJS
-    location /ws {
-        proxy_pass         http://127.0.0.1:8080;
-        proxy_http_version 1.1;
-        proxy_set_header   Upgrade           $http_upgrade;
-        proxy_set_header   Connection        "upgrade";
-        proxy_set_header   Host              $host;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
         proxy_read_timeout 3600s;
     }
-
-    # Fichiers uploadés (logos, factures, etc.)
-    location /api/storage/files/ {
-        proxy_pass         http://127.0.0.1:8080;
-        proxy_http_version 1.1;
-        proxy_set_header   Host              $host;
-        proxy_set_header   X-Real-IP         $remote_addr;
-    }
 }
-NGX
+```
 
-ln -s /etc/nginx/sites-available/finace /etc/nginx/sites-enabled/finace
-rm -f /etc/nginx/sites-enabled/default
+```bash
+ln -sf /etc/nginx/sites-available/finance /etc/nginx/sites-enabled/finance
 nginx -t && systemctl reload nginx
 ```
 
 ---
 
-## 7. TLS (Let's Encrypt)
+## 5. Lancer (sans toucher au PFE)
 
 ```bash
-certbot --nginx -d finace.exemple.tn --redirect --agree-tos -m admin@exemple.tn
-systemctl status certbot.timer    # renouvellement automatique
+cd /var/www/finance
+docker compose -f docker-compose.prod.yml up -d --build
+docker compose -f docker-compose.prod.yml ps
+```
+
+Tu dois voir **3 services Up** : `db`, `backend`, `frontend`.
+
+Tests locaux (ne passent pas par le DNS) :
+
+```bash
+curl -s http://127.0.0.1:3081/ | head
+curl -s http://127.0.0.1:18081/actuator/health
+# PFE toujours OK :
+curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:3080
+```
+
+Logs si le backend restart :
+
+```bash
+docker compose -f docker-compose.prod.yml logs backend --tail=80
 ```
 
 ---
 
-## 8. Pré-flight checklist
+## 6. HTTPS
 
-- [ ] `systemctl is-active finace` → `active`
-- [ ] `curl -fsS http://127.0.0.1:8080/actuator/health` → `{"status":"UP"}` (si actuator activé)
-- [ ] `curl -fsS https://finace.exemple.tn/api/auth/login -X POST -H 'Content-Type: application/json' -d '{"email":"x","password":"x"}'` → 401 (preuve que le backend répond)
-- [ ] `https://finace.exemple.tn/` charge la page d'accueil React
-- [ ] WebSocket : ouvrir DevTools → onglet Network → frame `wss` connecté après login
-- [ ] Sauvegarde PostgreSQL :
-      `pg_dump -U finace finace | gzip > /var/backups/finace-$(date +%F).sql.gz`
-      (mettre en cron quotidien)
-
----
-
-## 9. Mise à jour
+Le DNS A `finance` doit déjà résoudre vers `187.127.94.149`.
 
 ```bash
-# sur la machine de dev
-mvn -DskipTests -f backend/pom.xml package
-npm --prefix frontend run build
-
-# upload
-scp backend/target/finace-1.0.0.jar   root@VPS:/opt/finace/finace.jar.new
-scp -r frontend/dist/*                root@VPS:/var/www/finace-frontend/
-
-# sur le VPS
-mv /opt/finace/finace.jar.new /opt/finace/finace.jar
-chown finace:finace /opt/finace/finace.jar
-systemctl restart finace
+certbot --nginx -d finance.autolifeservices.com --redirect --agree-tos -m admin@autolifeservices.com
 ```
 
-Les migrations Flyway s'appliquent au redémarrage.
+Ouvre **https://finance.autolifeservices.com**
 
 ---
 
-## 10. Plan B — Hostinger Cloud Hosting (hébergement mutualisé)
+## 7. Premier super_admin
 
-Hostinger **Cloud Hosting** (mutualisé) **n'autorise pas** d'exécuter un JAR Spring Boot
-en service permanent : il faut un VPS. Si tu es sur un plan mutualisé, deux options :
+Inscris-toi sur le site, puis :
 
-1. **Migrer vers le plan VPS Hostinger** (recommandé).
-2. **Externaliser** : déployer le backend sur Railway / Render / Fly.io,
-   et garder seulement le frontend statique (`frontend/dist/`) sur le mutualisé
-   en pointant `VITE_API_URL` vers l'URL publique du backend.
+```bash
+cd /var/www/finance
+docker compose -f docker-compose.prod.yml exec db \
+  psql -U finace -d finace \
+  -c "UPDATE profiles SET role = 'super_admin' WHERE email = 'ton@email.com';"
+```
+
+---
+
+## 8. Mises à jour
+
+```bash
+cd /var/www/finance
+git pull
+docker compose -f docker-compose.prod.yml up -d --build
+```
+
+Le PFE (`/var/www/pfe/MEDIANET_PFE-`) n’est pas redémarré.
