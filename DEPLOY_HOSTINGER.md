@@ -131,8 +131,8 @@ nginx -t && systemctl reload nginx
 
 ```bash
 cd /var/www/finance
-docker compose -f docker-compose.prod.yml up -d --build
-docker compose -f docker-compose.prod.yml ps
+docker compose up -d --build
+docker compose ps
 ```
 
 Tu dois voir **3 services Up** : `db`, `backend`, `frontend`.
@@ -149,7 +149,7 @@ curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:3080
 Logs si le backend restart :
 
 ```bash
-docker compose -f docker-compose.prod.yml logs backend --tail=80
+docker compose logs backend --tail=80
 ```
 
 ---
@@ -172,7 +172,7 @@ Inscris-toi sur le site, puis :
 
 ```bash
 cd /var/www/finance
-docker compose -f docker-compose.prod.yml exec db \
+docker compose exec db \
   psql -U finace -d finace \
   -c "UPDATE profiles SET role = 'super_admin' WHERE email = 'ton@email.com';"
 ```
@@ -184,7 +184,7 @@ docker compose -f docker-compose.prod.yml exec db \
 ```bash
 cd /var/www/finance
 git pull
-docker compose -f docker-compose.prod.yml up -d --build
+docker compose up -d --build
 ```
 
 Le PFE (`/var/www/pfe/MEDIANET_PFE-`) n’est pas redémarré.

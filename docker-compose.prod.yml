@@ -1,5 +1,6 @@
-# Production — à côté du PFE Medianet (ports 3080 / 18080 déjà pris).
-# Usage VPS : docker compose -f docker-compose.prod.yml up -d --build
+# Production — db + backend + frontend.
+# Lancement (Medianet / VPS) : docker compose up -d --build
+# (docker-compose.yml inclut ce fichier.)
 name: antigone-finance
 
 services:
