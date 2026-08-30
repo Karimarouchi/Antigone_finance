@@ -18,14 +18,15 @@ export function PublicNavbar() {
         </Link>
       </motion.div>
 
-      {/* Auth buttons */}
-      <motion.div
-        initial={{ opacity: 0, x: 12 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="flex items-center gap-3"
-      >
+      {/* Theme button stays outside motion transforms so the reveal origin is exact */}
+      <div className="flex items-center gap-3">
         <AnimatedThemeToggler />
+        <motion.div
+          initial={{ opacity: 0, x: 12 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
+          className="flex items-center gap-3"
+        >
         <Link to={ROUTES.login}
           className="inline-flex items-center justify-center px-5 py-2 text-sm font-semibold rounded-full border transition-all active:scale-95"
           style={{
@@ -44,7 +45,8 @@ export function PublicNavbar() {
         >
           Créer un compte
         </Link>
-      </motion.div>
+        </motion.div>
+      </div>
     </header>
   )
 }

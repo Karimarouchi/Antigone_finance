@@ -61,6 +61,7 @@ export function SharedProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     document.body.classList.toggle('dark', state.theme === 'dark');
+    document.documentElement.classList.toggle('dark', state.theme === 'dark');
     try { localStorage.setItem('theme', state.theme); } catch { /* noop */ }
   }, [state.theme]);
 

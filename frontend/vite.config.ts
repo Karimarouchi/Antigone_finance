@@ -15,5 +15,5 @@ export default defineConfig({
       '/ws':  { target: 'http://localhost:8080', changeOrigin: true, ws: true },
     },
   },
-  build: { outDir: 'dist', sourcemap: false },
+  build: { outDir: 'dist', sourcemap: false, cssCodeSplit: false },
 });

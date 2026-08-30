@@ -6,15 +6,23 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-/* View Transition API support for smooth theme transitions */
-::view-transition-old(root) {
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
   animation: none;
-  opacity: 1;
 }
 
-::view-transition-new(root) {
+::view-transition-group(root) {
   animation: none;
-  opacity: 1;
+}
+
+.theme-toggle-btn {
+  view-transition-name: theme-toggle;
+}
+
+::view-transition-group(theme-toggle) {
+  z-index: 100;
+  animation: none;
 }
 
 .border-glow-card { margin-bottom: 12px; box-shadow: none !important; border: none !important; background: transparent !important; }

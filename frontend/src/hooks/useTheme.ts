@@ -14,6 +14,7 @@ export function useTheme() {
 
   useEffect(() => {
     document.body.classList.toggle('dark', theme === 'dark');
+    document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
 
   function toggleTheme() {
