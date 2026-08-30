@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { api } from '@/lib/api';
 import { EASE_OUT_ALT } from '@/lib/framer-motion-constants';
 import { ROUTES } from '@/config/routes';
+import { publicFileUrl } from '@/lib/files';
 import { InvoiceStaticPreview } from '@/features/invoice/InvoiceStaticPreview';
 import '@/pages/client-detail.css';
 
@@ -205,7 +206,7 @@ export default function ClientDetailPage() {
       {/* Header */}
       <motion.div className="client-detail-header" {...stagger(1)}>
         <div className="client-detail-avatar" style={{ background: client.logoUrl ? 'transparent' : avatarColor(displayName) }}>
-          {client.logoUrl ? <img src={client.logoUrl} alt={displayName} /> : initials(displayName)}
+          {client.logoUrl ? <img src={publicFileUrl(client.logoUrl) ?? client.logoUrl} alt={displayName} /> : initials(displayName)}
         </div>
         <div className="client-detail-identity">
           <h1 className="client-detail-name">{displayName}</h1>

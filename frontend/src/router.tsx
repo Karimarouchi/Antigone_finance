@@ -7,31 +7,47 @@ import { ProtectedLayout } from '@/components/ProtectedLayout';
 // Lazy-loaded pages. Files are scaffolded in src/pages — each module exports
 // default React component. As you port pages from the source app/, drop them
 // into src/pages/<section>/<page>.tsx and update the path below.
-import { lazy, Suspense } from 'react';
-const HomePage      = lazy(() => import('@/pages/HomePage'));
-const LoginPage     = lazy(() => import('@/pages/LoginPage'));
-const SignupPage    = lazy(() => import('@/pages/SignupPage'));
-const DashboardPage = lazy(() => import('@/pages/DashboardPage'));
-const ProfilePage   = lazy(() => import('@/pages/ProfilePage'));
-const ClientsPage   = lazy(() => import('@/pages/ClientsPage'));
-const ApercuPage    = lazy(() => import('@/pages/ApercuPage'));
-const ContactsPage  = lazy(() => import('@/pages/ContactsPage'));
-const ProjectsPage  = lazy(() => import('@/pages/ProjectsPage'));
-const InvoicePage   = lazy(() => import('@/pages/InvoicePage'));
-const AdminPage     = lazy(() => import('@/pages/AdminPage'));
-const SuperAdminPage= lazy(() => import('@/pages/SuperAdminPage'));
-const ClientDetailPage = lazy(() => import('@/pages/ClientDetailPage'));
-const EncaissementsLayout       = lazy(() => import('@/features/encaissements/EncaissementsLayout'));
-const EncaissementsOverview     = lazy(() => import('@/pages/encaissements/Overview'));
-const EncaissementsFactures     = lazy(() => import('@/pages/encaissements/Factures'));
-const EncaissementsAutres       = lazy(() => import('@/pages/encaissements/AutresRevenus'));
-const DecaissementsLayout       = lazy(() => import('@/features/decaissements/DecaissementsLayout'));
-const DecaissementsOverview     = lazy(() => import('@/pages/decaissements/Overview'));
-const DecaissementsSalaires     = lazy(() => import('@/pages/decaissements/Salaires'));
-const DecaissementsChargesFixes = lazy(() => import('@/pages/decaissements/ChargesFixes'));
-const DecaissementsChargesVar   = lazy(() => import('@/pages/decaissements/ChargesVariables'));
-const DecaissementsEtat         = lazy(() => import('@/pages/decaissements/Etat'));
-const DecaissementsDettes       = lazy(() => import('@/pages/decaissements/Dettes'));
+import { lazy, Suspense, type ComponentType } from 'react';
+import ClientsPage from '@/pages/ClientsPage';
+import ClientDetailPage from '@/pages/ClientDetailPage';
+import ContactsPage from '@/pages/ContactsPage';
+
+/** After a deploy, cached index.html can request old hashed chunks. Reload once. */
+function lazyPage(importer: () => Promise<{ default: ComponentType }>) {
+  return lazy(() =>
+    importer().catch((err: unknown) => {
+      const key = 'finace-chunk-reload';
+      if (typeof sessionStorage !== 'undefined' && !sessionStorage.getItem(key)) {
+        sessionStorage.setItem(key, '1');
+        window.location.reload();
+        return new Promise<{ default: ComponentType }>(() => {});
+      }
+      throw err;
+    }),
+  );
+}
+
+const HomePage      = lazyPage(() => import('@/pages/HomePage'));
+const LoginPage     = lazyPage(() => import('@/pages/LoginPage'));
+const SignupPage    = lazyPage(() => import('@/pages/SignupPage'));
+const DashboardPage = lazyPage(() => import('@/pages/DashboardPage'));
+const ProfilePage   = lazyPage(() => import('@/pages/ProfilePage'));
+const ApercuPage    = lazyPage(() => import('@/pages/ApercuPage'));
+const ProjectsPage  = lazyPage(() => import('@/pages/ProjectsPage'));
+const InvoicePage   = lazyPage(() => import('@/pages/InvoicePage'));
+const AdminPage     = lazyPage(() => import('@/pages/AdminPage'));
+const SuperAdminPage= lazyPage(() => import('@/pages/SuperAdminPage'));
+const EncaissementsLayout       = lazyPage(() => import('@/features/encaissements/EncaissementsLayout'));
+const EncaissementsOverview     = lazyPage(() => import('@/pages/encaissements/Overview'));
+const EncaissementsFactures     = lazyPage(() => import('@/pages/encaissements/Factures'));
+const EncaissementsAutres       = lazyPage(() => import('@/pages/encaissements/AutresRevenus'));
+const DecaissementsLayout       = lazyPage(() => import('@/features/decaissements/DecaissementsLayout'));
+const DecaissementsOverview     = lazyPage(() => import('@/pages/decaissements/Overview'));
+const DecaissementsSalaires     = lazyPage(() => import('@/pages/decaissements/Salaires'));
+const DecaissementsChargesFixes = lazyPage(() => import('@/pages/decaissements/ChargesFixes'));
+const DecaissementsChargesVar   = lazyPage(() => import('@/pages/decaissements/ChargesVariables'));
+const DecaissementsEtat         = lazyPage(() => import('@/pages/decaissements/Etat'));
+const DecaissementsDettes       = lazyPage(() => import('@/pages/decaissements/Dettes'));
 
 function ProtectedShell() {
   return <ProtectedLayout />;

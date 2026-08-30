@@ -6,6 +6,7 @@ import { CustomSelect } from '@/components/ui/custom-select';
 import { api } from '@/lib/api';
 import { EASE_OUT, EASE_OUT_ALT } from '@/lib/framer-motion-constants';
 import { ROUTES } from '@/config/routes';
+import { publicFileUrl } from '@/lib/files';
 import './clients.css';
 
 /* ── Helpers ── */
@@ -146,7 +147,7 @@ function LogoDropzone({ form, setForm, logoPreview }: {
 
   const previewSrc = form.logoFile
     ? URL.createObjectURL(form.logoFile)
-    : logoPreview ?? null;
+    : publicFileUrl(logoPreview) ?? logoPreview ?? null;
 
   function handleDrop(e: React.DragEvent) {
     e.preventDefault();
@@ -527,7 +528,7 @@ function ClientCard({ client, index, onEdit, onArchive, onRestore, isArchived }:
     >
       <div className="client-card-top">
         <div className="client-avatar" style={{ background: c.logoUrl ? 'transparent' : avatarColor(dn(c)) }}>
-          {c.logoUrl ? <img src={c.logoUrl} alt={dn(c)} /> : getInitials(dn(c))}
+          {c.logoUrl ? <img src={publicFileUrl(c.logoUrl) ?? c.logoUrl} alt={dn(c)} /> : getInitials(dn(c))}
         </div>
         <div className="client-card-identity">
           <div className="client-card-name">{dn(c)}</div>
@@ -665,7 +666,7 @@ function ClientsTable({ clients, onEdit, onArchive, onRestore }: {
               <td>
                 <div className="table-client-cell">
                   <div className="table-avatar" style={{ background: c.logoUrl ? 'transparent' : avatarColor(dn(c)) }}>
-                    {c.logoUrl ? <img src={c.logoUrl} alt={dn(c)} /> : getInitials(dn(c))}
+                    {c.logoUrl ? <img src={publicFileUrl(c.logoUrl) ?? c.logoUrl} alt={dn(c)} /> : getInitials(dn(c))}
                   </div>
                   <div className="table-client-name">{dn(c)}</div>
                 </div>

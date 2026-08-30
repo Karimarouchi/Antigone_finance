@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { api } from '@/lib/api';
+import { publicFileUrl } from '@/lib/files';
 import { useInvoice } from '@/features/invoice/context/InvoiceContext';
 
 /* The API returns clients in camelCase; the invoice components read snake_case.
@@ -12,7 +13,7 @@ function normalizeClient(c: any) {
     matricule_fiscale:     c.matricule_fiscale     ?? c.matriculeFiscale     ?? null,
     joining_date:          c.joining_date          ?? c.joiningDate          ?? null,
     billing_cycle:         c.billing_cycle         ?? c.billingCycle         ?? null,
-    logo_url:              c.logo_url              ?? c.logoUrl              ?? null,
+    logo_url:              publicFileUrl(c.logo_url ?? c.logoUrl) ?? c.logo_url ?? c.logoUrl ?? null,
     email_receiver_name:   c.email_receiver_name   ?? c.emailReceiverName   ?? null,
     email_receiver_gender: c.email_receiver_gender ?? c.emailReceiverGender ?? null,
   };

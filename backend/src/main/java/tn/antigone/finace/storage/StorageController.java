@@ -6,7 +6,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tn.antigone.finace.common.BadRequestException;
 import tn.antigone.finace.common.NotFoundException;
 
@@ -31,8 +30,7 @@ public class StorageController {
     public UploadResp upload(@PathVariable String bucket, @RequestParam("file") MultipartFile file) {
         if (!BUCKETS.contains(bucket)) throw new BadRequestException("Bucket inconnu: " + bucket);
         String key = storage.store(bucket, file);
-        String url = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/api/storage/files/").path(key).toUriString();
+        String url = "/api/storage/files/" + key;
         return new UploadResp(key, url);
     }
 
