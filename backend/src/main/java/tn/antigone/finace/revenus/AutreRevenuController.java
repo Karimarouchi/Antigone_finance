@@ -12,7 +12,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/autres-revenus")
 @RequiredArgsConstructor
-@RequireFeature({"encaissements", "encaissements-autres"})
+@RequireFeature({"encaissements", "encaissements-autres", "encaissements-autres-revenus"})
 public class AutreRevenuController {
 
     private final AutreRevenuRepository repo;

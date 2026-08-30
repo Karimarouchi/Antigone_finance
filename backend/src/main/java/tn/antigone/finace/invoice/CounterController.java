@@ -13,7 +13,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/counters")
 @RequiredArgsConstructor
-@RequireFeature({"invoice"})
+@RequireFeature({"invoice", "invoice-creator", "clients", "encaissements-factures"})
 public class CounterController {
 
     private final CounterRepository repo;

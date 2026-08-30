@@ -4,6 +4,7 @@ import {
   api, fetchMe, loadSession, login as apiLogin, logout as apiLogout,
   saveSession, signup as apiSignup, loginWithGoogle, type AuthSession,
 } from '@/lib/api';
+import { hasFeatureAccess } from '@/lib/featureAccess';
 
 interface AuthState {
   loading: boolean;
@@ -68,10 +69,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       logout: async () => { await apiLogout(); setState({ loading: false, session: null, features: [] }); },
       refreshFeatures,
       refreshProfile: refreshFeatures,
-      hasFeature: (id) => state.features.includes(id),
+      hasFeature: (id) => hasFeatureAccess(state.features, id, u?.role),
       user: u,
       profile,
-      can: (id) => state.features.includes(id),
+      can: (id) => hasFeatureAccess(state.features, id, u?.role),
     };
   }, [state, refreshFeatures]);
 

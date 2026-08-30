@@ -19,7 +19,7 @@ public class FeatureService {
     }
 
     public boolean has(UUID userId, String featureId) {
-        return repo.existsByUserIdAndFeatureId(userId, featureId);
+        return FeatureIds.granted(repo.findFeatureIdsByUserId(userId), featureId);
     }
 
     @Transactional

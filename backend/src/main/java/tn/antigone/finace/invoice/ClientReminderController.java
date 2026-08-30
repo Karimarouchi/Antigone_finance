@@ -10,7 +10,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/client-reminders")
 @RequiredArgsConstructor
-@RequireFeature({"invoice"})
+@RequireFeature({"invoice", "invoice-creator", "clients", "encaissements-factures"})
 public class ClientReminderController {
 
     private final ClientReminderRepository repo;

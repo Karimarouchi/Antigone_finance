@@ -11,7 +11,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/contacts")
 @RequiredArgsConstructor
-@RequireFeature({"contacts", "invoice"})
+@RequireFeature({"contacts", "invoice", "clients", "invoice-creator"})
 public class ContactController {
 
     private final ContactRepository repo;

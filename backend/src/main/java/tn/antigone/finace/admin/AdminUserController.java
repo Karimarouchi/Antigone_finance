@@ -63,6 +63,9 @@ public class AdminUserController {
             throw new BadRequestException("Rôle invalide");
         Profile p = profileRepo.findById(id).orElseThrow(() -> new NotFoundException("Utilisateur introuvable"));
         p.setRole(r.role());
+        if ("admin".equals(r.role()) || "super_admin".equals(r.role())) {
+            featureService.grant(id, "admin", id);
+        }
         return p;
     }
 

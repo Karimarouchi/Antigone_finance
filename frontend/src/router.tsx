@@ -61,10 +61,16 @@ const router = createBrowserRouter([
       children: [
         { path: ROUTES.app.dashboard, element: <DashboardPage /> },
         { path: ROUTES.app.profile,   element: <ProfilePage /> },
-        { path: ROUTES.app.apercu,    element: <ApercuPage /> },
-        { path: ROUTES.app.projects,  element: <ProjectsPage /> },
         {
-          element: <FeatureRoute feature={['invoice', 'contacts', 'payments']} />,
+          element: <FeatureRoute feature="apercu" />,
+          children: [{ path: ROUTES.app.apercu, element: <ApercuPage /> }],
+        },
+        {
+          element: <FeatureRoute feature="projects" />,
+          children: [{ path: ROUTES.app.projects, element: <ProjectsPage /> }],
+        },
+        {
+          element: <FeatureRoute feature={['clients', 'invoice', 'invoice-creator', 'contacts', 'payments', 'encaissements-factures']} />,
           children: [
             { path: ROUTES.app.clients,       element: <ClientsPage /> },
             { path: ROUTES.app.clientDetail,  element: <Suspense><ClientDetailPage /></Suspense> },
@@ -73,7 +79,12 @@ const router = createBrowserRouter([
           ],
         },
         {
-          element: <FeatureRoute feature="encaissements" />,
+          element: <FeatureRoute feature={[
+            'encaissements',
+            'encaissements-overview',
+            'encaissements-factures',
+            'encaissements-autres-revenus',
+          ]} />,
           children: [{
             element: <Suspense><EncaissementsLayout /></Suspense>,
             children: [
@@ -84,7 +95,15 @@ const router = createBrowserRouter([
           }],
         },
         {
-          element: <FeatureRoute feature="decaissements" />,
+          element: <FeatureRoute feature={[
+            'decaissements',
+            'decaissements-overview',
+            'decaissements-salaires',
+            'decaissements-charges-fixes',
+            'decaissements-charges-variables',
+            'decaissements-etat',
+            'decaissements-dettes',
+          ]} />,
           children: [{
             element: <Suspense><DecaissementsLayout /></Suspense>,
             children: [
@@ -97,8 +116,14 @@ const router = createBrowserRouter([
             ],
           }],
         },
-        { path: ROUTES.app.admin,      element: <AdminPage /> },
-        { path: ROUTES.app.superAdmin, element: <SuperAdminPage /> },
+        {
+          element: <FeatureRoute feature="admin" />,
+          children: [{ path: ROUTES.app.admin, element: <AdminPage /> }],
+        },
+        {
+          element: <FeatureRoute feature="super-admin" />,
+          children: [{ path: ROUTES.app.superAdmin, element: <SuperAdminPage /> }],
+        },
       ],
     }],
   },

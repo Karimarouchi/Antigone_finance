@@ -11,7 +11,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/templates")
 @RequiredArgsConstructor
-@RequireFeature({"invoice"})
+@RequireFeature({"invoice", "invoice-creator", "clients", "encaissements-factures"})
 public class TemplateController {
 
     private final TemplateRepository repo;

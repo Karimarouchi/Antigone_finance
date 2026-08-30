@@ -205,6 +205,9 @@ export function FeatureAssignmentPanel({
                   )}
                 </div>
               </div>
+              <p className="fap-selected-email" style={{ marginTop: 4 }}>
+                L’utilisateur doit se reconnecter (ou recharger la page) pour voir les nouveaux accès.
+              </p>
               <span className={`fap-summary-badge${isPending ? ' fap-saving' : ''}`}>
                 {isPending
                   ? 'Enregistrement…'

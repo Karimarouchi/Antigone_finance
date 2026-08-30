@@ -30,7 +30,7 @@ const FEATURE_GROUPS: FAPFeatureGroup[] = [
     id: 'general',
     label: 'Accès généraux',
     items: APP_REGISTRY.standalone
-      .filter(s => !['home', 'admin', 'super-admin'].includes(s.id))
+      .filter(s => !['home', 'super-admin'].includes(s.id))
       .map(s => ({ id: s.id, label: s.label, description: s.description })),
   },
   ...APP_REGISTRY.groups.map(g => ({

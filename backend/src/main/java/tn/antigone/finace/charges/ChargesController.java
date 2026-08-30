@@ -13,7 +13,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/charges")
 @RequiredArgsConstructor
-@RequireFeature({ "decaissements-charges", "decaissements" })
+@RequireFeature({ "decaissements-charges", "decaissements", "decaissements-charges-fixes", "decaissements-charges-variables" })
 public class ChargesController {
 
     private final ChargeFixeDefRepository defs;

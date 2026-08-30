@@ -15,7 +15,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/cnss")
 @RequiredArgsConstructor
-@RequireFeature({"decaissements-cnss", "decaissements"})
+@RequireFeature({"decaissements-cnss", "decaissements", "decaissements-etat"})
 public class CnssController {
 
     private final CnssTrimestreRepository trimestres;

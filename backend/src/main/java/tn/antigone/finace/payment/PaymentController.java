@@ -16,7 +16,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/payments")
 @RequiredArgsConstructor
-@RequireFeature({ "payments", "invoice" })
+@RequireFeature({ "payments", "invoice", "invoice-creator", "clients", "encaissements-factures" })
 public class PaymentController {
 
     private final PaymentRepository payments;

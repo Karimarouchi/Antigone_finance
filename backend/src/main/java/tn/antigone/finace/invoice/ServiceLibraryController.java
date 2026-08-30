@@ -11,7 +11,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/services")
 @RequiredArgsConstructor
-@RequireFeature({"invoice"})
+@RequireFeature({"invoice", "invoice-creator", "clients", "encaissements-factures"})
 public class ServiceLibraryController {
 
     private final ServiceLibraryRepository repo;
