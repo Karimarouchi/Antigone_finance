@@ -15,7 +15,7 @@ public class FeatureService {
     private final UserFeatureRepository repo;
 
     public List<String> listFeatures(UUID userId) {
-        return repo.findFeatureIdsByUserId(userId);
+        return FeatureIds.expand(repo.findFeatureIdsByUserId(userId));
     }
 
     public boolean has(UUID userId, String featureId) {

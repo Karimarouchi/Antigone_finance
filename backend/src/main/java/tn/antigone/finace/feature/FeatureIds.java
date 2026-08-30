@@ -47,4 +47,24 @@ public final class FeatureIds {
         }
         return false;
     }
+
+    /** Adds parent ids so the current production frontend (checks "encaissements" / "decaissements") works. */
+    public static List<String> expand(Collection<String> raw) {
+        if (raw == null || raw.isEmpty()) return List.of();
+        java.util.LinkedHashSet<String> out = new java.util.LinkedHashSet<>(raw);
+        if (raw.stream().anyMatch(id -> "encaissements".equals(id) || id.startsWith("encaissements-"))) {
+            out.add("encaissements");
+        }
+        if (raw.stream().anyMatch(id -> "decaissements".equals(id) || id.startsWith("decaissements-"))) {
+            out.add("decaissements");
+        }
+        if (raw.stream().anyMatch(id ->
+                "invoice".equals(id) || "invoice-creator".equals(id)
+                        || "clients".equals(id) || "payments".equals(id)
+                        || "encaissements-factures".equals(id))) {
+            out.add("invoice");
+            out.add("payments");
+        }
+        return List.copyOf(out);
+    }
 }
